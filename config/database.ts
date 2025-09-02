@@ -1,13 +1,15 @@
-export default ({ env }) => ({
+import { Env } from '@strapi/types';
+
+export default ({ env }: { env: Env }) => ({
   connection: {
-    client: 'postgres',
+    client: env('DATABASE_CLIENT', 'postgres'),
     connection: {
       host: env('DATABASE_HOST'),
       port: env.int('DATABASE_PORT', 5432),
       database: env('DATABASE_NAME'),
       user: env('DATABASE_USERNAME'),
       password: env('DATABASE_PASSWORD'),
-      ssl: { rejectUnauthorized: false }, // <-- THIS
+      ssl: env.bool('DATABASE_SSL', true),
     },
     debug: false,
   },
