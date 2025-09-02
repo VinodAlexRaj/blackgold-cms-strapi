@@ -2,9 +2,13 @@ export default ({ env }) => ({
   connection: {
     client: 'postgres',
     connection: {
-      connectionString: env('DATABASE_URL'),
-      ssl: env.bool('DATABASE_SSL', true),
+      host: env('DATABASE_HOST'),
+      port: env.int('DATABASE_PORT', 5432),
+      database: env('DATABASE_NAME'),
+      user: env('DATABASE_USERNAME'),
+      password: env('DATABASE_PASSWORD'),
+      ssl: { rejectUnauthorized: false }, // <-- THIS
     },
-    pool: { min: 0, max: 10 },
+    debug: false,
   },
 });
